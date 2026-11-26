@@ -419,7 +419,7 @@ def friendly_error(exc: Exception) -> str:
     text = str(exc)
     low = text.lower()
     if "401" in text or "invalid api key" in low or "api key" in low:
-        return "The Groq API key was rejected. Check `GROQ_API_KEY` in `streamlit/.streamlit/secrets.toml`."
+        return "The Groq API key was rejected. Check `GROQ_API_KEY` in `.streamlit/secrets.toml`."
     if "429" in text or "rate limit" in low:
         return "Groq is rate-limiting requests right now. Wait a few seconds and try again."
     if "model" in low and ("not found" in low or "decommission" in low):
@@ -875,8 +875,8 @@ def render_setup() -> None:
 
     if not api_ready():
         st.warning(
-            "No Groq API key found. Add `GROQ_API_KEY` to `streamlit/.streamlit/secrets.toml` "
-            "and reload the page to start an interview."
+            "No Groq API key found. Add `GROQ_API_KEY` to `.streamlit/secrets.toml` locally, "
+            "or to the app's Secrets settings on Streamlit Cloud, then reload the page."
         )
 
     with st.form("setup_form", border=False):
@@ -994,7 +994,7 @@ def render_setup() -> None:
         st.error("Add your name so the interviewer can greet you.")
         return
     if not api_ready():
-        st.error("Add `GROQ_API_KEY` to `streamlit/.streamlit/secrets.toml` before starting.")
+        st.error("Add `GROQ_API_KEY` to `.streamlit/secrets.toml` before starting.")
         return
 
     st.session_state.update(
